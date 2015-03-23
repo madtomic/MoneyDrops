@@ -9,6 +9,7 @@ import java.util.Random;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -75,61 +76,65 @@ public class MoneyDrops extends JavaPlugin implements Listener {
 		meta.setDisplayName(ChatColor.RED + "put this item down it will break your life");
 		meta.setLore(lore);
 
-		if	((killer != null) && (deadentity instanceof LivingEntity)) {
+		if (getConfig().getBoolean("creativeEnabled") == false || ((getConfig().getBoolean("creativeEnabled") == true) && killer.getGameMode() != GameMode.CREATIVE)) {
+			if	((killer != null) && (deadentity instanceof LivingEntity)) {
 			
-			String[] mobmoneymin = {"bat.min", "chicken.min", "cow.min", "mooshroom.min", "pig.min", "rabbit.min", "sheep.min", "squid.min", "villager.min",
+				String[] mobmoneymin = {"bat.min", "chicken.min", "cow.min", "mooshroom.min", "pig.min", "rabbit.min", "sheep.min", "squid.min", "villager.min",
 					"cavespider.min", "enderman.min", "spider.min", "zombiepigman.min", "blaze.min", "creeper.min", "endermite.min", "ghast.min", "guardian.min", "magmacube.min", "silverfish.min", "skeleton.min", "slime.min", "witch.min", "zombie.min",
 					"horse.min", "ocelot.min", "wolf.min",
 					"irongolem.min", "snowgolem.min"};
 			
-			String[] mobmoneymax = {"bat.max", "chicken.max", "cow.max", "mooshroom.max", "pig.max", "rabbit.max", "sheep.max", "squid.max", "villager.max",
+				String[] mobmoneymax = {"bat.max", "chicken.max", "cow.max", "mooshroom.max", "pig.max", "rabbit.max", "sheep.max", "squid.max", "villager.max",
 					"cavespider.max", "enderman.max", "spider.max", "zombiepigman.max", "blaze.max", "creeper.max", "endermite.max", "ghast.max", "guardian.max", "magmacube.max", "silverfish.max", "skeleton.max", "slime.max", "witch.max", "zombie.max",
 					"horse.max", "ocelot.max", "wolf.max",
 					"irongolem.max", "snowgolem.max"};
 			
-			String[] mobisenabled = {"bat.enabled", "chicken.enabled", "cow.enabled", "mooshroom.enabled", "pig.enabled", "rabbit.enabled", "sheep.enabled", "squid.enabled", "villager.enabled",
+				String[] mobisenabled = {"bat.enabled", "chicken.enabled", "cow.enabled", "mooshroom.enabled", "pig.enabled", "rabbit.enabled", "sheep.enabled", "squid.enabled", "villager.enabled",
 					"cavespider.enabled", "enderman.enabled", "spider.enabled", "zombiepigman.enabled", "blaze.enabled", "creeper.enabled", "endermite.enabled", "ghast.enabled", "guardian.enabled", "magmacube.enabled", "silverfish.enabled", "skeleton.enabled", "slime.enabled", "witch.enabled", "zombie.enabled",
 					"horse.enabled", "ocelot.enabled", "wolf.enabled",
 					"irongolem.enabled", "snowgolem.enabled"};
 	
-			Boolean[] isMob = {deadentity instanceof Bat, deadentity instanceof Chicken, deadentity instanceof Cow, deadentity instanceof MushroomCow, deadentity instanceof Pig, deadentity instanceof Rabbit, deadentity instanceof Sheep, deadentity instanceof Squid, deadentity instanceof Villager,
+				Boolean[] isMob = {deadentity instanceof Bat, deadentity instanceof Chicken, deadentity instanceof Cow, deadentity instanceof MushroomCow, deadentity instanceof Pig, deadentity instanceof Rabbit, deadentity instanceof Sheep, deadentity instanceof Squid, deadentity instanceof Villager,
 					deadentity instanceof CaveSpider, deadentity instanceof Enderman, deadentity instanceof Spider, deadentity instanceof PigZombie, deadentity instanceof Blaze, deadentity instanceof Creeper, deadentity instanceof Endermite, deadentity instanceof Ghast, deadentity instanceof Guardian, deadentity instanceof MagmaCube, deadentity instanceof Silverfish, deadentity instanceof Skeleton, deadentity instanceof Slime, deadentity instanceof Witch, deadentity instanceof Zombie,
 					deadentity instanceof Horse, deadentity instanceof Ocelot, deadentity instanceof Wolf,
 					 deadentity instanceof IronGolem, deadentity instanceof Snowman};
 			
-			for (int i = 0; i <= (isMob.length - 1); i++)
-				if (isMob[i] && getConfig().getBoolean(mobisenabled[i])) {
+				for (int i = 0; i <= (isMob.length - 1); i++) {
+					if (isMob[i] && getConfig().getBoolean(mobisenabled[i])) {
 					
-					Double randmoney = randDouble(getConfig().getDouble(mobmoneymin[i]), getConfig().getDouble(mobmoneymax[i]));
-					Double randm = round(randmoney, 2);
+						Double randmoney = randDouble(getConfig().getDouble(mobmoneymin[i]), getConfig().getDouble(mobmoneymax[i]));
+						Double randm = round(randmoney, 2);
 					
-					meta.setDisplayName(Double.toString(randm));
+						meta.setDisplayName(Double.toString(randm));
 					
-					imoney.setItemMeta(meta);
+						imoney.setItemMeta(meta);
 					
-					Item emoney = world.dropItemNaturally(location, imoney);
+						Item emoney = world.dropItemNaturally(location, imoney);
 					
-					emoney.setCustomName(ChatColor.AQUA + cprefix + randm);
-					emoney.setCustomNameVisible(true);
+						emoney.setCustomName(ChatColor.AQUA + cprefix + randm);
+						emoney.setCustomNameVisible(true);
+					}
 				}
-		}
-		if ((deadentity.getLastDamageCause() instanceof Player) && (deadentity instanceof Player) && getConfig().getBoolean("formulae.enabled")) {
-			Player deadplayer = (Player) deadentity;
-			
-			Double deadbal = economy.getBalance(deadplayer);
-			Double reward = deadbal * (getConfig().getInt("formulae.x") / getConfig().getInt("formulae.y"));
-			Double rew = round(reward, 2);
-			
-			economy.withdrawPlayer(deadplayer, reward);
-			
-			meta.setDisplayName(Double.toString(rew));
-			
-			imoney.setItemMeta(meta);
-			
-			Item emoney = world.dropItemNaturally(location, imoney);
-			
-			emoney.setCustomName(ChatColor.AQUA + cprefix + Double.toString(rew));
-			emoney.setCustomNameVisible(true);
+			}
+		
+			if ((deadentity.getLastDamageCause() instanceof Player) && (deadentity instanceof Player) && getConfig().getBoolean("formulae.enabled")) {
+				Player deadplayer = (Player) deadentity;
+				
+				Double deadbal = economy.getBalance(deadplayer);
+				Double reward = deadbal * (getConfig().getInt("formulae.x") / getConfig().getInt("formulae.y"));
+				Double rew = round(reward, 2);
+				
+				economy.withdrawPlayer(deadplayer, reward);
+				
+				meta.setDisplayName(Double.toString(rew));
+				
+				imoney.setItemMeta(meta);
+				
+				Item emoney = world.dropItemNaturally(location, imoney);
+				
+				emoney.setCustomName(ChatColor.AQUA + cprefix + Double.toString(rew));
+				emoney.setCustomNameVisible(true);
+			}
 		}
 	}
 	

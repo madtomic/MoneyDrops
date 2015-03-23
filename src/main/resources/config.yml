@@ -3,6 +3,9 @@
 # The symbol for whatever currency you are using.
 currencyPrefix: $
 
+# Should players in creative receive money for killing mobs?
+creativeEnabled: false
+
 # This is the item that drops when a mob is killed.
 # Note that players will never actually pick this up.
 item: PAPER
