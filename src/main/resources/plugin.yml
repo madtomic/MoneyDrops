@@ -1,0 +1,8 @@
+name: MoneyDrops
+version: 1.0.0
+description: To be cont
+author: Bluerossman
+authors: [Bluerossman]
+softdepend: [Vault]
+main: tk.porthydra.MoneyDrops.MoneyDrops
+database: false

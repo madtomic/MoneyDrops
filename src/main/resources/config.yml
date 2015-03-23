@@ -1,0 +1,159 @@
+# MoneyDrops Configuration File v1.0.0
+
+# The symbol for whatever currency you are using.
+currencyPrefix: $
+
+# This is the item that drops when a mob is killed.
+# Note that players will never actually pick this up.
+item: PAPER
+
+formulae:     # This is the formulae for when a player kills a player.
+  x: 1     # The equation is: deadbal * (x/y)
+  y: 5     # See the help page for more information.
+  enabled: true     # Should other players drop money?
+
+bat: # The name of the mob
+  min: 2.0     # The minimum amount of money it drops. This MUST be a number.
+  max: 3.5     # The maximum amount of money it drops. This MUST be a number.
+               # Want it to drop the same each time? Set both values to the same thing.
+  enabled: true     # Should this mob drop money?
+
+chicken:
+  min: 1.5
+  max: 2
+  enabled: true 
+  
+cow:
+  min: 1
+  max: 1.5
+  enabled: true 
+    
+mooshroom:
+  min: 8
+  max: 10
+  enabled: true 
+    
+pig:
+  min: 1
+  max: 2
+  enabled: true 
+    
+rabbit:
+  min: 2
+  max: 2
+  enabled: true 
+    
+sheep:
+  min: 2
+  max: 2
+  enabled: true 
+    
+squid:
+  min: 1.5
+  max: 1.5
+  enabled: true 
+    
+villager:
+  min: 5
+  max: 7
+  enabled: true 
+    
+spider:
+  min: 5
+  max: 6
+  enabled: true 
+    
+cavespider:
+  min: 5
+  max: 6
+  enabled: true 
+    
+enderman:
+  min: 6.5
+  max: 7.5
+  enabled: true 
+    
+zombiepigman:
+  min: 7.5
+  max: 10
+  enabled: true 
+    
+blaze:
+  min: 9
+  max: 10
+  enabled: true 
+    
+creeper:
+  min: 6
+  max: 8
+  enabled: true 
+    
+endermite:
+  min: 3
+  max: 5
+  enabled: true 
+    
+ghast:
+  min: 10
+  max: 15
+  enabled: true 
+    
+guardian:
+  min: 7
+  max: 7.5
+  enabled: true 
+    
+magamacube:
+  min: 6
+  max: 7
+  enabled: true 
+    
+silverfish:
+  min: 5.5
+  max: 6.5
+  enabled: true 
+    
+skeleton:
+  min: 5
+  max: 6
+  enabled: true 
+    
+slime:
+  min: 4
+  max: 5
+  enabled: true 
+    
+witch:
+  min: 6.5
+  max: 9
+  enabled: true 
+    
+zombie:
+  min: 5
+  max: 6
+  enabled: true 
+    
+horse:
+  min: 5
+  max: 6
+  enabled: true 
+  
+ocelot:
+  min: 7
+  max: 9
+  enabled: true 
+    
+wolf:
+  min: 7
+  max: 9
+  enabled: true 
+    
+irongolem:
+  min: 17.5
+  max: 25
+  enabled: true 
+    
+snowgolem:
+  min: 5
+  max: 6
+  enabled: true   
