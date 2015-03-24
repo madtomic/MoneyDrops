@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>tk.porthydra</groupId>
   <artifactId>MoneyDrops</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <build>
       <plugins>
           <plugin>

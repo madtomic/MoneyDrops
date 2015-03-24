@@ -117,11 +117,12 @@ public class MoneyDrops extends JavaPlugin implements Listener {
 				}
 			}
 		
-			if ((deadentity.getLastDamageCause() instanceof Player) && (deadentity instanceof Player) && getConfig().getBoolean("formulae.enabled")) {
+			if ((killer != null) && (deadentity instanceof Player) && getConfig().getBoolean("formulae.enabled")) {
 				Player deadplayer = (Player) deadentity;
 				
 				Double deadbal = economy.getBalance(deadplayer);
-				Double reward = deadbal * (getConfig().getInt("formulae.x") / getConfig().getInt("formulae.y"));
+				Double formulae = getConfig().getDouble("formulae.x") / getConfig().getDouble("formulae.y");
+				Double reward = deadbal * formulae;
 				Double rew = round(reward, 2);
 				
 				economy.withdrawPlayer(deadplayer, reward);
